@@ -1,19 +1,21 @@
 <script>
+import { store } from '../../data/store';
+
 export default {
 	name: 'Card',
 	data() {
 		return {
-			
+			store
 		}
 	},
 	props:{
     id: Number,
-    name: String,
-		frameType: String,
-		race: String,
-    desc: String,
+    title: String,
+		
+		
+    
     image: String,
-		limitation:String
+	
   },
 }
 </script>
@@ -21,7 +23,7 @@ export default {
 <template>
 	<div class="card">
 		<div class="card-image">
-			<img src="https://image.tmdb.org/t/p/w500/NNxYkU70HPurnNCSiCjYAmacwm.jpg" alt="">
+			<img :src="image" >
 		</div>
 	</div>
 </template>
