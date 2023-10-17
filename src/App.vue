@@ -21,65 +21,53 @@ export default {
     }
   },
   methods: {
-    getApi() {
-      axios.get('https://api.themoviedb.org/3/trending/all/week?api_key=65754e4ced7fe4bf7abd766ddf5376b5')
+    getApi(type) {
+      store.movie = [];
+      store.tv = [];
+      if (store.apiParams.query === ''){
+        store.apiUrlBase += store.default;
+      } else store.apiUrlBase += store.search
+      axios.get(store.apiUrlBase + type, {
+        params: store.apiParams
+      })
       .then(result => {
-        store.mainList = result.data.results
-
-        store.mainList.forEach( obj => {   
-          if(obj.media_type ==='movie'){
-            if(!store.movieList.includes(obj.id)){
-              store.movieList.push(obj)
-            }
-          } else if(!store.tvList.includes(obj.id)){
-            store.tvList.push(obj)
+        store[type] = result.data.results;
+        console.log(store[type])
+        
+        store[type].forEach(object => {
+          if (object.media_type === 'movie'){
+            store.movie.push(object)
+          } else {
+            store.tv.push(object)
           }
-        })
+        });
       })
       .catch(error => {
-        store.mainList = []
       })
-    }
+    },
+    startSearch() {
+      this.getApi(store.type);
+      store.apiParams.query = '';
+      store.type = 'multi';
+      store.apiUrlBase = 'https://api.themoviedb.org/3/';
+    },
+
   },
   computed: {
     
   },
   mounted() {
-    this.getApi();
-
-    console.log('store.mainList: '+ store.mainList.length)
-    console.log('store.movieList: '+ store.movieList.length)
-    console.log('store.tvList: '+ store.tvList.length)
+    this.startSearch();
+    console.log('store.movieList: '+ store.movie.length)
+    console.log('store.tvList: '+ store.tv.length)
   },
 }
 </script>
 
 <template>
-  <Header />
-  <Main />
-  <!-- <main>
-		<div class="container">
-			<h1>Film:</h1>
-			<div class="card-movie-wrapper">
-				<Card 
-					v-for="movie in store.movieList"
-					:key="movie.id"
-					:image="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
-				/>
-
-	
-			</div>
-			<h1>Serie TV:</h1>
-			<div class="card-tv-wrapper">
-				<Card 
-					
-					v-for="series in store.tvList"
-      		:key="series.id"
-					:image="`https://image.tmdb.org/t/p/w500${series.poster_path}`"
-				/>
-			</div>
-		</div>
-	</main> -->
+  <Header @startSearch="startSearch" />
+  <Main v-if="store.movie.length > 0"  title="Films: " type="movie"/>
+  <Main v-if="store.tv.length > 0"  title="Serie TV: " type="tv"/>
   <Footer />
  
 </template>

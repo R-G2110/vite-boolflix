@@ -14,8 +14,7 @@ export default {
 		origTitle: String,
 		origLang: String,
 		desc: String,
-		rating: String,
-    
+		rating: String,  
     image: String,
 	
   },
@@ -46,15 +45,20 @@ p {
 }
 
 .card {
-	
 	width: calc(100% / 4);
 	padding: 10px;
 	cursor: pointer;
 	.card-image {
 		position: relative;
+		overflow: hidden;
+
+		
+		&:hover img {
+			transform: scale(1.4);
+		}
 		&:hover .overlay{
 			display: block;
-			background-color: gray;
+			background-color: rgba($color: #000000, $alpha: .6);
 		}
 	}
 	.overlay {
@@ -65,7 +69,8 @@ p {
 		top: 0;
 		left: 0;
 		padding: 20px;
-		
+		overflow: auto;
+
 	}
 }
 </style>
