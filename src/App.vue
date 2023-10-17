@@ -4,6 +4,7 @@ import axios from 'axios';
 import { store } from './data/store';
 import Header from './components/Header.vue';
 import Main from './components/Main.vue';
+import Footer from './components/Footer.vue';
 import Card from './components/partials/Card.vue';
 
 export default {
@@ -11,6 +12,7 @@ export default {
   components: {
     Header,
     Main,
+    Footer,
     Card
   },
   data() {
@@ -20,7 +22,7 @@ export default {
   },
   methods: {
     getApi() {
-      axios.get('https://api.themoviedb.org/3/trending/all/day?api_key=65754e4ced7fe4bf7abd766ddf5376b5')
+      axios.get('https://api.themoviedb.org/3/trending/all/week?api_key=65754e4ced7fe4bf7abd766ddf5376b5')
       .then(result => {
         store.mainList = result.data.results
 
@@ -54,7 +56,8 @@ export default {
 
 <template>
   <Header />
-  <main>
+  <Main />
+  <!-- <main>
 		<div class="container">
 			<h1>Film:</h1>
 			<div class="card-movie-wrapper">
@@ -76,23 +79,8 @@ export default {
 				/>
 			</div>
 		</div>
-	</main>
-  <!-- <ol>
-    <li v-for="(movie, index) in store.movieList"
-      :key="index"
-    >
-      <p>{{ movie.title }}</p>
-      <p>{{ movie.poster_path }}</p>
-    </li>
-  </ol> -->
-  <!-- <ol>
-    <li v-for="(series, index) in store.tvList"
-      :key="index"
-    >
-      <p>{{ series.name }}</p>
-      <img :src="`https://image.tmdb.org/t/p/w500${series.poster_path}`" alt="">
-    </li>
-  </ol> -->
+	</main> -->
+  <Footer />
  
 </template>
 

@@ -8,11 +8,16 @@ export default {
 	<header>
 		<div class="container">
 			<div class="logo">
-				<img src="/public/img/logo-boolflix.png" alt="Logo">
+				<img src="/img/logo-boolflix.png" alt="Logo">
 			</div>
 			<div class="query">
+				<!-- Search Bar -->
 				<h1>search bar</h1>
+				<!-- /Search Bar -->
+				
+				<!-- Select -->
 				<h1>select</h1>
+				<!-- /Select -->
 			</div>
 		</div>
 	</header>
