@@ -11,6 +11,12 @@ img {
 body {
 	background-color: #2F3133;
 	color: #C4C4C4;
+	background-image:
+	linear-gradient(to bottom,
+		#000000 0px,
+		#000000 0.01vh,
+		#2F3133 7vh,
+		#2F3133 100%);;
 }
 
 .container {

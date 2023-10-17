@@ -33,5 +33,6 @@ export default {
 .card {
 	width: calc(100% / 4);
 	padding: 10px;
+	cursor: pointer;
 }
 </style>
