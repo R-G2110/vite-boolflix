@@ -1,8 +1,12 @@
 <script>
+import StarRating from 'vue-star-rating'
 import { store } from '../../data/store';
 
 export default {
 	name: 'Card',
+	components: {
+		StarRating
+	},
 	data() {
 		return {
 			store
@@ -29,7 +33,12 @@ export default {
 				<h2>{{ title }}</h2>
 				<h5>{{ origTitle }}</h5>
 				<p>{{ origLang }}</p>
-				<p>Ratings: {{ rating }}</p>
+				<star-rating 
+					inactive-color="#7B7B7B"
+          active-color="#fff"
+      	  v-bind:star-size="30"
+					:rating="( rating / 2)"
+				></star-rating>
 				<p>{{ desc }}</p>
 
 			</div>
@@ -44,13 +53,20 @@ p {
 	margin: 10px auto;
 }
 
+// star-rating {
+// 	star-size: 20px;
+// }
+
 .card {
 	width: calc(100% / 4);
+	color: #C4C4C4;
 	padding: 10px;
 	cursor: pointer;
 	.card-image {
+		height: 430px;
 		position: relative;
 		overflow: hidden;
+		object-fit:cover;
 
 		
 		&:hover img {
