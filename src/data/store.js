@@ -8,6 +8,7 @@ export const store = reactive({
     query: '',
     language:'it-IT'
   },
+  
   search: 'search/',
   default: 'trending/all/week?',
   type: 'multi',

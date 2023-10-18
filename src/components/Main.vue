@@ -16,24 +16,19 @@ export default {
 	props:{
 		title: String,
 		type: String
-	},
-}
+	}
+}	
 </script>
 
 <template>
 	  <main>
-		<div class="container">
-			<h1>{{title}}</h1>
+		<div class="container-custom">
+			<h1>{{ title }}</h1>
 			<div class="card-movie-wrapper">
 				<Card 
-					v-for="show in store[type]"
-					:key="show.id"
-					:image="`https://image.tmdb.org/t/p/w500${show.poster_path}`"
-					:title="show.title || show.name"
-					:origTitle="show.original_title || show.original_title"
-					:origLang="show.original_language"
-					:rating="show.vote_average"
-					:desc="show.overview"
+					v-for="item in store[type]"
+					:key="item.id"
+					:item="item"
 				/>
 			</div>
 		</div>
@@ -42,7 +37,11 @@ export default {
 
 <style lang="scss" scoped>
 @use '../scss/main.scss';
-.container{
+.container-custom {
+	width: 90%;
+	margin: 0 auto;
+	padding-top: 460px;
 	margin-bottom: 100px;
+	color: #C4C4C4;
 }
 </style>

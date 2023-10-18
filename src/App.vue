@@ -3,6 +3,7 @@
 import axios from 'axios';
 import { store } from './data/store';
 import Header from './components/Header.vue';
+import Hero from './components/Hero.vue';
 import Main from './components/Main.vue';
 import Footer from './components/Footer.vue';
 import Card from './components/partials/Card.vue';
@@ -11,6 +12,7 @@ export default {
   name:'App',
   components: {
     Header,
+    Hero,
     Main,
     Footer,
     Card
@@ -31,16 +33,18 @@ export default {
         params: store.apiParams
       })
       .then(result => {
-        store[type] = result.data.results;
-        console.log(store[type])
+        if (store.type === 'multi'){
+          result.data.results.forEach(object => {
+            if (object.media_type !== 'movie'){
+              store.tv.push(object)
+            } else {
+              store.movie.push(object)
+            }
+          });
+        } else{
+          store[type] = result.data.results;
+        }
         
-        store[type].forEach(object => {
-          if (object.media_type === 'movie'){
-            store.movie.push(object)
-          } else {
-            store.tv.push(object)
-          }
-        });
       })
       .catch(error => {
       })
@@ -50,24 +54,35 @@ export default {
       store.apiParams.query = '';
       store.type = 'multi';
       store.apiUrlBase = 'https://api.themoviedb.org/3/';
+      console.log('store.movie: '+store.movie.length);
+      console.log('store.tv: '+store.tv.length);
     },
 
   },
   computed: {
-    
+    getNoImage(){
+      if(store[type].poster_path === null) return '/img/no-image.jpg'
+    }
   },
   mounted() {
     this.startSearch();
-    console.log('store.movieList: '+ store.movie.length)
-    console.log('store.tvList: '+ store.tv.length)
   },
 }
 </script>
 
 <template>
   <Header @startSearch="startSearch" />
-  <Main v-if="store.movie.length > 0"  title="Films: " type="movie"/>
-  <Main v-if="store.tv.length > 0"  title="Serie TV: " type="tv"/>
+  <Hero />
+  <Main 
+    v-if="store.movie.length > 0 || store.type === 'movie'"  
+    title="Films: " 
+    type="movie"
+  />
+  <Main 
+    v-if="store.tv.length > 0 || store.type === 'tv'"  
+    title="Serie TV: " 
+    type="tv"
+  />
   <Footer />
  
 </template>
@@ -77,9 +92,11 @@ export default {
 h1 {
 	padding: 10px;
 }
+
 .card-movie-wrapper,
 .card-tv-wrapper {
 	display: flex;
 	flex-wrap: wrap;
 }
+
 </style>
