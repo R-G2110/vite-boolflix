@@ -75,12 +75,12 @@ export default {
   <Hero />
   <Main 
     v-if="store.movie.length > 0 || store.type === 'movie'"  
-    title="Films: " 
+    title="Film in evidenza: " 
     type="movie"
   />
   <Main 
     v-if="store.tv.length > 0 || store.type === 'tv'"  
-    title="Serie TV: " 
+    title="Serie TV in evidenza: " 
     type="tv"
   />
   <Footer />

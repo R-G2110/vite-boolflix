@@ -40,7 +40,6 @@ export default {
 .container-custom {
 	width: 90%;
 	margin: 0 auto;
-	padding-top: 460px;
 	margin-bottom: 100px;
 	color: #C4C4C4;
 }
